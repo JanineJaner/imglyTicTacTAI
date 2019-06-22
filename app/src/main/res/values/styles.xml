@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+
+    <!-- Light Theme -->
+    <style name="LightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundColor">#fcfcfc</item>
+        <item name="textColor">#080808</item>
+        <item name="greetingTextColor">#636363</item>
+        <item name="buttonColor">#cecece</item>
+
+        <!--In Game-->
+        <item name="textColor_gameTitle">#F0ECEC</item>
+    </style>
+
+    <!-- Dark Theme -->
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundColor">#1e1e1e</item>
+        <item name="textColor">#dadada</item>
+        <item name="greetingTextColor">#dadada</item>
+        <item name="buttonColor">#00849e</item>
+
+        <!--In Game-->
+    </style>
+
+    <!-- Dialog Animation -->
+    <style name="DialogAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+    <!-- Dialog Animation -->
+
+
+</resources>

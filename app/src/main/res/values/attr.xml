@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="declared_stylable">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="greetingTextColor" format="color"/>
+        <attr name="buttonColor" format="color"/>
+        <attr name="textColor_gameTitle" format="color"/>
+
+    </declare-styleable>
+</resources>

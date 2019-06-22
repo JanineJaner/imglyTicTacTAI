@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="c_DarkBackground">#1e1e1e</color>
+
+    <color name="c_Buttons">#969696</color>
+    <color name="c_ButtonBackground">#333333</color>
+
+
+    <color name="c_ButtonText">#FFFF8D</color>
+    <color name="c_ButtonBackgroundAI">#8BC34A</color>
+    <color name="c_ButtonBackgroundPlayer">#42A5F5</color>
+
+    <color name="c_TextActivePlayer">#aa79e0</color>
+    <color name="c_TextDefault">#969696</color>
+    <color name="c_TextTitleHeader">#FFFFFF</color>
+    <color name="c_TextDialogHint">#7A7A7A</color>
+
+
+</resources>
