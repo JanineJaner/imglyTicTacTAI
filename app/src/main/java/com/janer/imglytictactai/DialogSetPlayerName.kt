@@ -6,7 +6,7 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.dialog_setplayername.view.*
+import kotlinx.android.synthetic.main.dialog_input_playername.view.*
 import tictactoe.zeroneun.com.tictactoe.Classes.SharedPref
 
 // <Summary>

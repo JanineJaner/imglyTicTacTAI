@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import kotlinx.android.synthetic.main.dialog_setplayername.view.*
+import kotlinx.android.synthetic.main.dialog_input_playername.view.*
 import tictactoe.zeroneun.com.tictactoe.Activity.StartPageActivity
 import kotlin.reflect.KClass
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="?attr/backgroundColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="25dp">
+
+    <EditText
+            android:id="@+id/edittext_playerName"
+            android:hint="Name"
+            android:textColorHint="@color/c_TextDialogHint"
+            android:textColor="?attr/textColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"/>
+
+    <Button android:id="@+id/button_confirmPlayerName"
+            android:text="OK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edittext_playerName"
+            android:layout_alignParentRight="true"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+</RelativeLayout>
