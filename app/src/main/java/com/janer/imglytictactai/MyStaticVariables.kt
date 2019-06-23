@@ -1,4 +1,4 @@
-package com.janer.imglytictactai
+package tictactoe.zeroneun.com.tictactoe.Classes
 
 class MyStaticVariables {
     companion object{

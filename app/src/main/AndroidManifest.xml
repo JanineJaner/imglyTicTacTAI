@@ -9,17 +9,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/LightTheme">
-        <activity android:name=".Activities.StartPageActivity" android:screenOrientation="portrait">
+        <activity android:name=".Activity.StartPageActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.TicTacToeActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activities.EndScreenActivity" android:screenOrientation="portrait"></activity>
-
     </application>
-
 
 </manifest>
