@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_DarkBackground"
+        tools:context=".Activity.TicTacToeActivity">
+
+    <TextView
+            android:id="@+id/textview_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="-30dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+    <!--..........................................................-->
+    <TextView android:id="@+id/textview_gameTitle"
+
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="30dp"
+              android:layout_marginTop="-30dp"
+              android:gravity="center"
+
+              android:text="TicTacAI"
+              android:textSize="30sp"
+              android:textColor="@color/c_TextTitleHeader"/>
+
+    <!--..........................................................-->
+    <TableRow
+            android:background="@drawable/rounded_top"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp">
+
+        <!--Row 0 Column 0-->
+        <Button
+                android:id="@+id/btn1"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+
+                android:background="@drawable/btn_rounded_top_left"
+                android:textSize="50sp"
+                android:text="X"
+                android:backgroundTint="#8BC34A"
+                android:textColor="@color/c_ButtonText"/>
+
+        <!--Row 0 Column 1-->
+        <Button
+                android:id="@+id/btn2"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+
+                android:background="@color/c_Buttons"
+                android:textColor="@color/c_ButtonText"
+                android:text="O"
+                android:backgroundTint="#42A5F5"
+                android:textSize="50sp"/>
+
+        <!--Row 0 Column 2-->
+        <Button
+                android:id="@+id/btn3"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+
+                android:background="@drawable/btn_rounded_top_right"
+                android:textColor="@color/c_ButtonText"
+                android:textSize="50sp"/>
+    </TableRow>
+
+    <!--..........................................................-->
+    <TableRow
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+          android:background="@color/c_ButtonBackground">
+
+        <!--Row 1 Column 0-->
+        <Button
+                android:id="@+id/btn4"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+
+                android:background="@color/c_Buttons"
+                android:textColor="@color/c_ButtonText"
+                android:textSize="50sp"/>
+
+        <!--Row 1 Column 1-->
+        <Button
+                android:id="@+id/btn5"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+
+                android:background="@color/c_Buttons"
+                android:textColor="@color/c_ButtonText"
+                android:textSize="50sp"/>
+
+        <!--Row 1 Column 2-->
+        <Button
+                android:id="@+id/btn6"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+
+                android:background="@color/c_Buttons"
+                android:textColor="@color/c_ButtonText"
+                android:textSize="50sp"/>
+    </TableRow>
+
+    <!--..........................................................-->
+    <TableRow
+            android:background="@drawable/rounded_bottom"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp">
+
+        <!--Row 2 Column 0-->
+        <Button
+                android:id="@+id/btn7"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="9dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginBottom="12dip"
+
+                android:background="@drawable/btn_rounded_bottom_left_0"
+                android:textColor="@color/c_ButtonText"
+                android:textSize="50sp"/>
+        <!--Row 2 Column 1-->
+        <Button
+                android:id="@+id/btn8"
+                android:onClick="btnClick"
+
+                android:layout_width="36pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="9dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginBottom="12dip"
+
+                android:background="@color/c_Buttons"
+                android:textColor="@color/c_ButtonText"
+                android:textSize="50sp"
+        />
+
+        <!--Row 2 Column 2-->
+        <Button
+                android:id="@+id/btn9"
+                android:onClick="btnClick"
+
+                android:layout_width="30pt"
+                android:layout_height="80dp"
+                android:layout_marginTop="9dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginBottom="12dip"
+
+                android:background="@drawable/btn_rounded_bottom_right"
+                android:textColor="@color/c_ButtonText"
+                android:textSize="50sp"
+        />
+    </TableRow>
+
+    <!--..........................................................-->
+    <TableRow android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="40dp"
+              android:layout_marginRight="40dp">
+
+        <!--Player Name-->
+        <TextView android:id="@+id/textview_player"
+                  android:layout_width="40pt"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:gravity="left"
+                  android:text="Player 1"
+                  android:textSize="15sp"
+                  android:textColor="@color/c_TextActivePlayer"/>
+
+        <!--Blank-->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <!--Computer Name-->
+        <TextView android:id="@+id/textview_computer"
+                  android:layout_width="40pt"
+                  android:layout_marginTop="5dp"
+                  android:layout_height="wrap_content"
+                  android:gravity="right"
+                  android:text="Computer"
+                  android:textSize="15sp"
+                  android:textColor="@color/c_TextActivePlayer"/>
+    </TableRow>
+
+
+</TableLayout>

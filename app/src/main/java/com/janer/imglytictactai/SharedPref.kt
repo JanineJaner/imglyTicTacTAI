@@ -1,9 +1,7 @@
-package tictactoe.zeroneun.com.tictactoe.Classes
+package com.janer.imglytictactai
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.view.View
 
 class SharedPref (val context: Context,var prefName:String = "prefs")
 {

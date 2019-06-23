@@ -2,14 +2,17 @@ package com.janer.imglytictactai.Activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.janer.imglytictactai.Constants
 import com.janer.imglytictactai.R
+import com.janer.imglytictactai.Utils.Utils
+import com.janer.imglytictactai.Utils.MyAnimationUtils
 import kotlinx.android.synthetic.main.activity_startpage.*
-import tictactoe.zeroneun.com.tictactoe.*
-import tictactoe.zeroneun.com.tictactoe.Classes.MyStaticVariables
-import tictactoe.zeroneun.com.tictactoe.Classes.SharedPref
+import com.janer.imglytictactai.MyStaticVariables
+import com.janer.imglytictactai.SharedPref
+import com.janer.imglytictactai.DialogFragments.InputPlayerNameDialog
 
 
-class StartPageActivity :AppCompatActivity(), DialogSetPlayerName.DialogSetPlayerNameListener {
+class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerNameDialogListener {
 
     lateinit var sharedPref: SharedPref
 
@@ -17,7 +20,7 @@ class StartPageActivity :AppCompatActivity(), DialogSetPlayerName.DialogSetPlaye
         super.onCreate(savedInstanceState)
 
         sharedPref = SharedPref(this)
-        MyStaticVariables.isDarkMode =sharedPref.func_loadBoolState(Constants.SKEY_DARK_MODE)
+        MyStaticVariables.isDarkMode =sharedPref.func_loadBoolState(Constants.PREF_DARK_MODE)
 
         //
         //  Set Theme
@@ -34,30 +37,31 @@ class StartPageActivity :AppCompatActivity(), DialogSetPlayerName.DialogSetPlaye
         // Show Set Player Name Dialog
 
         //
-        sharedPref.func_loadBoolState(Constants.SKEY_FIRST_START).apply{
+        sharedPref.func_loadBoolState(Constants.PREF_FIRST_START).apply{
             if(!this)
             {
                 func_showDialog()
-                sharedPref.func_saveBoolState(Constants.SKEY_FIRST_START,true)
+                sharedPref.func_saveBoolState(Constants.PREF_FIRST_START,true)
             }
         }
 
         //textview
         if(!MyStaticVariables.isInStartPageActivity){
-            textview_greetings.text = "Hi, ${sharedPref.func_loadString(Constants.SKEY_PLAYERNAME)} welcome back."
+            textview_greetings.text = "Hi, ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)} welcome back."
             MyStaticVariables.isInStartPageActivity = true
-            ViewAnimation().func_slideInBottom(textview_greetings)
+            MyAnimationUtils(textview_greetings).func_slideInBottom()
 
         }else{
-            textview_greetings.text = "Hello ${sharedPref.func_loadString(Constants.SKEY_PLAYERNAME)}"
-            ViewAnimation().func_shirkFadeOutFromButtom(textview_greetings)
+            textview_greetings.text = "Hello ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)}"
+            MyAnimationUtils(textview_greetings).func_shirkFadeOutFromButtom()
         }
 
 
         // Start Game
         button_startGame.setOnClickListener {
-            //TODO: CALL TICTACTOE ACTIVITY
-
+            Utils.func_startActivity(this,TicTacToeActivity::class.java)
+            overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
+            finish()
         }
 
         //Change Name
@@ -69,7 +73,7 @@ class StartPageActivity :AppCompatActivity(), DialogSetPlayerName.DialogSetPlaye
         // Dark/Light Mode Switching
         checkbox_darkModeEnabled.setOnClickListener {
             var checkbox_state = checkbox_darkModeEnabled.isChecked
-            sharedPref.func_saveBoolState(Constants.SKEY_DARK_MODE, checkbox_state)
+            sharedPref.func_saveBoolState(Constants.PREF_DARK_MODE, checkbox_state)
             Utils.func_startActivity(this,StartPageActivity::class.java)
         }
 
@@ -78,7 +82,7 @@ class StartPageActivity :AppCompatActivity(), DialogSetPlayerName.DialogSetPlaye
 
     override fun onResume() {
         super.onResume()
-        var checkboxState= sharedPref.func_loadBoolState(Constants.SKEY_DARK_MODE)
+        var checkboxState= sharedPref.func_loadBoolState(Constants.PREF_DARK_MODE)
         checkbox_darkModeEnabled.setChecked(checkboxState)
         MyStaticVariables.isDarkMode =!checkboxState
 
@@ -97,7 +101,7 @@ class StartPageActivity :AppCompatActivity(), DialogSetPlayerName.DialogSetPlaye
 
 
     fun func_showDialog(){
-        DialogSetPlayerName().show(
+        InputPlayerNameDialog().show(
             this.supportFragmentManager,
             "tag_loginDialog"
         )
