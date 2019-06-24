@@ -1,4 +1,4 @@
-package com.janer.imglytictactai
+package com.janer.imglytictactai.GameLoop
 
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -6,19 +6,13 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import com.janer.imglytictactai.Activities.StartPageActivity
-import com.janer.imglytictactai.Handler.TimerHandlerExtention
-import com.janer.imglytictactai.Threads.AIThread
-import com.janer.imglytictactai.Threads.TimerThread
-import com.janer.imglytictactai.Utils.Utils
 import kotlin.random.Random
 import android.content.Intent
-import android.media.AsyncPlayer
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import com.janer.imglytictactai.Activities.EndScreenActivity
-import com.janer.imglytictactai.Activities.TicTacToeActivity
-import java.lang.ref.WeakReference
+import com.janer.imglytictactai.Constants
+import com.janer.imglytictactai.R
+import com.janer.imglytictactai.SharedPref
 import java.util.*
 
 
@@ -32,8 +26,12 @@ class TicTacToe(val view: View) {
     init {
         grid = Array(9){false}
         isPlayerTurn = Random.nextBoolean()
-        tileColor1 = "#" + Integer.toHexString(ContextCompat.getColor(view.context, R.color.c_ButtonBackgroundPlayer))
-        tileColor2 = "#" + Integer.toHexString(ContextCompat.getColor(view.context, R.color.c_ButtonBackgroundAI))
+        tileColor1 = "#" + Integer.toHexString(ContextCompat.getColor(view.context,
+            R.color.c_ButtonBackgroundPlayer
+        ))
+        tileColor2 = "#" + Integer.toHexString(ContextCompat.getColor(view.context,
+            R.color.c_ButtonBackgroundAI
+        ))
     }
 
     fun startGame(timerThread: TimerThread){
@@ -100,7 +98,8 @@ class TicTacToe(val view: View) {
         if(checkWinner(grid) || turnCounter >= 10u){
             var winner:String
             if(isPlayerTurn)
-                  winner =  SharedPref(view.context).func_loadString(Constants.PREF_PLAYERNAME)
+                  winner =  SharedPref(view.context)
+                      .func_loadString(Constants.PREF_PLAYERNAME)
             else
                 winner = "Computer"
             gameOver(timerThread,winner)
@@ -114,7 +113,7 @@ class TicTacToe(val view: View) {
     fun gameOver(timerThread: TimerThread, winner:String){
         val i = Intent(view.context, EndScreenActivity::class.java)
         val extras = Bundle()
-        extras.putString(Constants.EXTRA_WINNER, "Computer")
+        extras.putString(Constants.EXTRA_WINNER, winner)
         extras.putString(Constants.EXTRA_TIME, ""+timerThread.getElapsedTime())
         i.putExtras(extras)
         view.context.startActivity(i)

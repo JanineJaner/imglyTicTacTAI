@@ -1,6 +1,5 @@
 package com.janer.imglytictactai.Activities
 
-import android.content.Intent
 import android.graphics.Typeface.BOLD
 import android.os.*
 import android.support.v7.app.AppCompatActivity
@@ -10,13 +9,12 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import com.janer.imglytictactai.Constants
 import com.janer.imglytictactai.DialogFragments.ProcessingAIMoveDialog
 import com.janer.imglytictactai.Handler.AIHandlerExtention
 import com.janer.imglytictactai.Handler.TimerHandlerExtention
 import com.janer.imglytictactai.R
-import com.janer.imglytictactai.TicTacToe
-import com.janer.imglytictactai.Threads.TimerThread
+import com.janer.imglytictactai.GameLoop.TicTacToe
+import com.janer.imglytictactai.GameLoop.TimerThread
 import com.janer.imglytictactai.Utils.MyAnimationUtils
 import kotlinx.android.synthetic.main.activity_tictactoe.*
 

@@ -1,4 +1,4 @@
-package com.janer.imglytictactai.Threads
+package com.janer.imglytictactai.GameLoop
 
 
 import android.os.Bundle
