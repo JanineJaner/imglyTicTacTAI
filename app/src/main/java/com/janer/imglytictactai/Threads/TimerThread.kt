@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Message
 import android.os.SystemClock
 import android.util.Log
-import com.janer.imglytictactai.Activities.resultHandler
+import com.janer.imglytictactai.Activities.timerHandler
 
 //
 //
@@ -17,8 +17,10 @@ class TimerThread : Runnable {
     var startTime: Long = 0L
     var elapsedTime = 0L
     init{
+        Log.i(TAG,"Initialized")
         pause = false
         startTime = SystemClock.currentThreadTimeMillis()
+        elapsedTime = 0L
     }
 
     override fun run() {
@@ -27,12 +29,11 @@ class TimerThread : Runnable {
             val currentTime = (SystemClock.currentThreadTimeMillis()- startTime) + elapsedTime
             publishProgress( convertTime(currentTime))
         }
-       resultHandler.postDelayed(this,100)
+       timerHandler.postDelayed(this,100)
     }
 
     fun resume(){
         Log.i(TAG,"RESUME")
-
         pause = false
         startTime = SystemClock.currentThreadTimeMillis()
         Log.i(TAG,"Starttime = $startTime")
@@ -44,9 +45,17 @@ class TimerThread : Runnable {
         elapsedTime = SystemClock.currentThreadTimeMillis()
     }
 
-    fun stop(){
-        Log.i(TAG,"STOP")
-        resultHandler.removeCallbacks(this)
+    fun stop() {
+        Log.i(TAG, "STOP")
+        elapsedTime = SystemClock.currentThreadTimeMillis()
+        timerHandler.removeCallbacks(this)
+
+    }
+
+
+    fun getElapsedTime():String{
+        pause()
+        return convertTime(elapsedTime)
     }
 
     private fun convertTime(currentTime:Long):String{
@@ -58,13 +67,13 @@ class TimerThread : Runnable {
 
 
     private fun publishProgress(count:String){
-        Log.i(TAG,"Sending back to the UI Thread")
+       // Log.i(TAG,"Sending back to the UI Thread")
         var msgBundle = Bundle().also {
             it.putString("result", count.toString())
         }
         var msg: Message = Message()
         msg.data = msgBundle
-        resultHandler.sendMessage(msg)
+        timerHandler.sendMessage(msg)
     }
 
 }

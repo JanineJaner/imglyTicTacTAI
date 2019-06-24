@@ -10,6 +10,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import com.janer.imglytictactai.Constants
 import com.janer.imglytictactai.DialogFragments.ProcessingAIMoveDialog
 import com.janer.imglytictactai.Handler.AIHandlerExtention
 import com.janer.imglytictactai.Handler.TimerHandlerExtention
@@ -19,70 +20,66 @@ import com.janer.imglytictactai.Threads.TimerThread
 import com.janer.imglytictactai.Utils.MyAnimationUtils
 import kotlinx.android.synthetic.main.activity_tictactoe.*
 
-lateinit var resultHandler: Handler
+lateinit var timerHandler: Handler
 lateinit var AIHandler:Handler
-class TicTacToeActivity : AppCompatActivity() {
 
+class TicTacToeActivity : AppCompatActivity() {
+    lateinit var timerThread: TimerThread
     val TAG = "TicTacToe"
     private lateinit var myTicTacToe: TicTacToe
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tictactoe)
-        val endGameIntent = Intent(this, EndScreenActivity::class.java)
+
+        timerHandler = TimerHandlerExtention(this)
+        AIHandler = AIHandlerExtention(this)
+
         var layoutView = LayoutInflater.from(this).inflate(R.layout.activity_tictactoe, null)
         myTicTacToe = TicTacToe(layoutView)
 
+       // val endGameIntent = Intent(this, EndScreenActivity::class.java)
+
         val spannable = SpannableString(resources.getString(R.string.s_title))
-
-
         spannable.setSpan(
             StyleSpan(BOLD), 7, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
         textview_gameTitle.text = spannable
 
 
-        resultHandler = TimerHandlerExtention(this)
-        AIHandler = AIHandlerExtention(this)
-
-        startCount()
+        //startCount()
+        timerThread = TimerThread()
+        timerThread.run()
+        myTicTacToe.startGame(timerThread)
 
     }
-    lateinit var countThread: TimerThread
+
     override fun onResume() {
         super.onResume()
-        countThread.resume()
+        timerThread.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        countThread.pause()
+        timerThread.stop()
     }
 
 
     override fun onStop() {
         super.onStop()
-        countThread.pause()
+        timerThread.stop()
+        finish()
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        stopCount()
+        timerThread.stop()
         finish()
 
     }
 
 
-    fun startCount(){
-        countThread = TimerThread()
-        countThread.run()
-    }
-
-    fun stopCount(){
-        countThread.stop()
-
-    }
 
     fun updateResult(result:String){
         textview_timer.text = result
@@ -93,7 +90,7 @@ class TicTacToeActivity : AppCompatActivity() {
             func_bounceAnimation()
         }
 
-        myTicTacToe.btnClick(view)
+        myTicTacToe.btnPressed(view,timerThread)
     }
 
     fun AI_btn_click(id:Int){
@@ -116,18 +113,17 @@ class TicTacToeActivity : AppCompatActivity() {
     }
 
     fun showWaitingDialog(dismissCountdown:Int){
+        // actvity resumed when dialog called
+        // TODO: DIALOG CALLED - ACTIVITY RESUME: find better solution
+        timerThread.pause()
         ProcessingAIMoveDialog(dismissCountdown).show(
             this.supportFragmentManager,
             "tag_AIProcessing"
         )
 
+}
 
-    }
 
-    fun dismissWaitingDialog() {
-       //  ProcessingAIMoveDialog().hide()
-     //   Dialog(this).hideAlertDialog(R.layout.dialog_aiprogress)
-    }
 
 }
 

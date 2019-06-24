@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/c_DarkBackground"
-        tools:context=".Activity.TicTacToeActivity">
+        tools:context=".Activities.TicTacToeActivity">
 
     <TextView
             android:id="@+id/textview_timer"
@@ -54,8 +54,6 @@
 
                 android:background="@drawable/btn_rounded_top_left"
                 android:textSize="50sp"
-                android:text="X"
-                android:backgroundTint="#8BC34A"
                 android:textColor="@color/c_ButtonText"/>
 
         <!--Row 0 Column 1-->
@@ -69,10 +67,8 @@
                 android:layout_marginRight="4dip"
                 android:layout_marginLeft="4dip"
 
-                android:background="@color/c_Buttons"
                 android:textColor="@color/c_ButtonText"
-                android:text="O"
-                android:backgroundTint="#42A5F5"
+                android:background="@color/c_Buttons"
                 android:textSize="50sp"/>
 
         <!--Row 0 Column 2-->

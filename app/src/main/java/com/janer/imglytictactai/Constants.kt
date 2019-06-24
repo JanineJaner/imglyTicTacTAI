@@ -1,8 +1,8 @@
 package com.janer.imglytictactai
 
 object Constants {
-    const val EXTRA_START_MAIN = "key_startToMain"
-    const val EXTRA_MAIN_END ="key_mainToEnd"
+    const val EXTRA_TIME = "extra_time"
+    const val EXTRA_WINNER ="extra_winnnter"
 
     const val PREF_FIRST_START = "skey_firstStart"
     const val PREF_DARK_MODE = "skey_darkMode"

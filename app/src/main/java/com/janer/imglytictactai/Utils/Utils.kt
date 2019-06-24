@@ -18,12 +18,6 @@ object Utils{
 
     }
 
-    fun func_showKeyboard(activity: Activity?) {
-
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-
-    }
 
     fun func_showKeyboardFromFragment(view:View) {
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
