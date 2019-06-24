@@ -14,6 +14,7 @@ import com.janer.imglytictactai.Utils.Utils
 import kotlin.random.Random
 import android.content.Intent
 import android.media.AsyncPlayer
+import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import com.janer.imglytictactai.Activities.EndScreenActivity
 import com.janer.imglytictactai.Activities.TicTacToeActivity
@@ -112,8 +113,10 @@ class TicTacToe(val view: View) {
 
     fun gameOver(timerThread: TimerThread, winner:String){
         val i = Intent(view.context, EndScreenActivity::class.java)
-        i.putExtra(Constants.EXTRA_WINNER, "Computer")
-        i.putExtra(Constants.EXTRA_TIME, ""+timerThread.elapsedTime)
+        val extras = Bundle()
+        extras.putString(Constants.EXTRA_WINNER, "Computer")
+        extras.putString(Constants.EXTRA_TIME, ""+timerThread.getElapsedTime())
+        i.putExtras(extras)
         view.context.startActivity(i)
     }
 

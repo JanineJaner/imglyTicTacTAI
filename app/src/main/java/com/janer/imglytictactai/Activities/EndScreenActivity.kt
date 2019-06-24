@@ -19,10 +19,11 @@ class EndScreenActivity: AppCompatActivity() {
 
 
         val intent = getIntent()
-        val Winner = intent.extras.getString(Constants.EXTRA_WINNER)
-//        val Time = intent.extras.getString(Constants.EXTRA_TIME)
+        val extras = intent.extras
+        val Winner = extras.getString(Constants.EXTRA_WINNER)
+        val Time =  extras.getString(Constants.EXTRA_TIME)
         textview_congratulation.text = "Congratulations $Winner has won"
-     //   textview_time.text= "Time of Thinking $Time"
+        textview_time.text= "Your time of Thinking $Time"
 
         button_restart.setOnClickListener {
             Utils.func_startActivity(this, TicTacToeActivity::class.java)
