@@ -7,7 +7,7 @@ import android.util.Log
 import com.janer.imglytictactai.Activities.AIHandler
 import kotlin.random.Random
 
-class AIThread(val grid: Array<Boolean>): Thread(){
+class AIThread(val grid: Array<Markers>): Thread(){
     val TAG = "TicTacToe"
     override fun start() {
         super.start()
@@ -21,11 +21,10 @@ class AIThread(val grid: Array<Boolean>): Thread(){
     {
         publishProgress(21)
         var cellId =Random.nextInt(1,9)
-        while(grid[cellId-1]){
+        while(grid[cellId-1].toString()== "O" || grid[cellId-1].toString()== "X")
+        {
             cellId =Random.nextInt(1,9)
-            Log.i("TimerThread", "RESELECTING: ${cellId-1}")
         }
-        Log.i("TimerThread", "Computer chose: ${cellId-1}")
         publishProgress(cellId)
     }
 

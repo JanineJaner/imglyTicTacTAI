@@ -16,25 +16,31 @@ import com.janer.imglytictactai.SharedPref
 import java.util.*
 
 
+enum class Markers {
+    X, O, E;
+
+    companion object {
+        fun random(): Markers {
+            return values()[Random.nextInt(values().size)]
+        }
+    }
+}
+
 class TicTacToe(val view: View) {
-    var grid: Array<Boolean>
+    var grid: Array<Markers>
     var isPlayerTurn: Boolean
     var turnCounter: UByte = 0u
     var tileColor1: String
     var tileColor2: String
 
     init {
-        grid = Array(9){false}
+        grid = Array(9) { Markers.E }
         isPlayerTurn = Random.nextBoolean()
-        tileColor1 = "#" + Integer.toHexString(ContextCompat.getColor(view.context,
-            R.color.c_ButtonBackgroundPlayer
-        ))
-        tileColor2 = "#" + Integer.toHexString(ContextCompat.getColor(view.context,
-            R.color.c_ButtonBackgroundAI
-        ))
+        tileColor1 = "#" + Integer.toHexString(ContextCompat.getColor(view.context, R.color.c_ButtonBackgroundPlayer))
+        tileColor2 = "#" + Integer.toHexString(ContextCompat.getColor(view.context, R.color.c_ButtonBackgroundAI))
     }
 
-    fun startGame(timerThread: TimerThread){
+    fun startGame(timerThread: TimerThread) {
 
         if (!isPlayerTurn) {
             Log.i("TimerThread", "FIRST TURN = AI")
@@ -59,92 +65,92 @@ class TicTacToe(val view: View) {
             R.id.btn8 -> cellID = 8
             R.id.btn9 -> cellID = 9
         }
-        PlayGame(cellID, btnSelected,timerThread)
+        PlayGame(cellID, btnSelected, timerThread)
     }
 
 
-    fun PlayGame(cellID: Int, btnSelected: Button,timerThread: TimerThread) {
+    fun PlayGame(cellID: Int, btnSelected: Button, timerThread: TimerThread) {
         turnCounter++
-        grid[cellID - 1] = true
-        Log.i("TimerThread", "TURN:" + turnCounter)
-        Log.i("TimerThread", "Cell ID ${cellID - 1}:" + Arrays.toString(grid))
-        if (isPlayerTurn) {
 
+        Log.i("TimerThread", "TURN:" + turnCounter)
+        if (isPlayerTurn) {
+            grid[cellID - 1] = Markers.X
             btnSelected.text = "X"
             btnSelected.background.setColorFilter(Color.parseColor(tileColor1), PorterDuff.Mode.SRC_ATOP)
 
-            if(!checkGameOver(timerThread)){
+            if (!checkGameOver(timerThread)) {
                 isPlayerTurn = false
                 timerThread.pause()
                 AIThread(grid).start()
             }
 
         } else {
+            grid[cellID - 1] = Markers.O
             btnSelected.text = "O"
             btnSelected.background.setColorFilter(Color.parseColor(tileColor2), PorterDuff.Mode.SRC_ATOP)
 
-            if(!checkGameOver(timerThread)) {
+            if (!checkGameOver(timerThread)) {
                 isPlayerTurn = true
                 timerThread.resume()
             }
         }
 
         btnSelected.isEnabled = false
+        Log.i("TimerThread", "Cell ID ${cellID - 1}:" + Arrays.toString(grid))
 
     }
 
-    fun checkGameOver(timerThread:TimerThread):Boolean{
+    fun checkGameOver(timerThread: TimerThread): Boolean {
 
-        if(checkWinner(grid) || turnCounter >= 10u){
-            var winner:String
-            if(isPlayerTurn)
-                  winner =  SharedPref(view.context)
-                      .func_loadString(Constants.PREF_PLAYERNAME)
+        if (checkWinner(grid) || turnCounter >= 10u) {
+            var winner: String
+            if (isPlayerTurn)
+                winner = SharedPref(view.context).func_loadString(Constants.PREF_PLAYERNAME)
             else
                 winner = "Computer"
-            gameOver(timerThread,winner)
+            gameOver(timerThread, winner)
 
             return true
-        }else
+        } else
             return false
 
     }
 
-    fun gameOver(timerThread: TimerThread, winner:String){
+    fun gameOver(timerThread: TimerThread, winner: String) {
         val i = Intent(view.context, EndScreenActivity::class.java)
         val extras = Bundle()
         extras.putString(Constants.EXTRA_WINNER, winner)
-        extras.putString(Constants.EXTRA_TIME, ""+timerThread.getElapsedTime())
+        extras.putString(Constants.EXTRA_TIME, "" + timerThread.getElapsedTime())
         i.putExtras(extras)
         view.context.startActivity(i)
     }
 
 
-    private fun checkWinner(grid: Array<Boolean>):Boolean {
-        //
-        // 0,1,2
-        // 3,4,5
-        // 6,7,9
-        // check row
-        for(index in 0 until 8 step 3)
-        {
-            if(grid[index]&&grid[index+1]&&grid[index+2])
-                return true
+    private fun checkWinner(grid: Array<Markers>): Boolean {
+        //---------
+        // 0| 1 |2
+        // 3| 4 |5
+        // 6| 7 |9
+        //---------
+
+        //check row
+        for (index in 0 until 8 step 3) {
+            if (grid[index].equals(grid[index + 1]) && grid[index].equals(grid[index + 2]))
+                if (grid[index] != Markers.E) return true
         }
 
         //check column
-        for(index in 0 until 2)
-        {
-            if(grid[index]&&grid[index+3]&&grid[index+6])
-                return true
+        for (index in 0 until 2) {
+            if (grid[index].equals(grid[index + 3]) && grid[index].equals(grid[index + 6]))
+                if (grid[index] != Markers.E) return true
         }
 
         // check Diagonals
-        if(grid[0]&&grid[4]&&grid[7])
-            return true
+        if (grid[0].equals(grid[4])&&grid[0].equals(grid[7]))
+            if (grid[0] != Markers.E) return true
 
-        if(grid[2]&&grid[4]&&grid[6])
-            return true
+        if (grid[2].equals(grid[4])&&grid[2].equals(grid[6]))
+            if (grid[2] != Markers.E) return true
 
         return false
     }
