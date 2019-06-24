@@ -7,15 +7,16 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import com.janer.imglytictactai.DialogFragments.ProcessingAIMoveDialog
+import com.janer.imglytictactai.Handler.TimerHandlerExtention
 import com.janer.imglytictactai.R
 import com.janer.imglytictactai.TicTacToe
+import com.janer.imglytictactai.Threads.TimerThread
 import com.janer.imglytictactai.Utils.MyAnimationUtils
 import kotlinx.android.synthetic.main.activity_tictactoe.*
-import java.lang.ref.WeakReference
+
 
 lateinit var resultHandler: Handler
 class TicTacToeActivity : AppCompatActivity() {
@@ -48,21 +49,39 @@ class TicTacToeActivity : AppCompatActivity() {
         startCount()
 
     }
+    lateinit var countThread: TimerThread
+    override fun onResume() {
+        super.onResume()
+        countThread.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        countThread.pause()
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        countThread.pause()
+    }
 
 
     override fun onDestroy() {
         super.onDestroy()
         stopCount()
+        finish()
+
     }
 
-    lateinit var countThread: TimerThread
+
     fun startCount(){
         countThread = TimerThread()
-        countThread.start()
+        countThread.run()
     }
 
     fun stopCount(){
-        countThread.interrupt()
+        countThread.stop()
 
     }
 
@@ -80,45 +99,3 @@ class TicTacToeActivity : AppCompatActivity() {
 
 }
 
-// Test Thread Run
-class TimerThread : Thread() {
-    val TAG = "Timer Thread"
-
-    override fun run() {
-        super.run()
-        Log.i(TAG, "Running in Timer thread")
-        for(i in 0 until 100)
-        {
-            //Send Message to UI here
-            publishProgress(i)
-            sleep(1000)
-        }
-    }
-
-    fun publishProgress(count:Int){
-        Log.v(TAG,"Sending back to the UI Thread")
-        var msgBundle = Bundle().also {
-            it.putString("result", count.toString())
-        }
-        var msg: Message = Message()
-        msg.data = msgBundle
-        resultHandler.sendMessage(msg)
-
-    }
-}
-
-class TimerHandlerExtention(activity: TicTacToeActivity) : Handler() {
-
-    private var activityWeakReference: WeakReference<TicTacToeActivity> = WeakReference<TicTacToeActivity>(activity)
-
-    override fun handleMessage(msg: Message) {
-        super.handleMessage(msg)
-        val activity = activityWeakReference.get()
-        activity?.let{
-            activity.updateResult(msg.data.getString("result"))
-        }
-    }
-
-
-
-}
