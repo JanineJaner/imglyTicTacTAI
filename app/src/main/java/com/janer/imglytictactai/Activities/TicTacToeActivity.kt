@@ -9,7 +9,9 @@ import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import com.janer.imglytictactai.DialogFragments.ProcessingAIMoveDialog
+import com.janer.imglytictactai.Handler.AIHandlerExtention
 import com.janer.imglytictactai.Handler.TimerHandlerExtention
 import com.janer.imglytictactai.R
 import com.janer.imglytictactai.TicTacToe
@@ -17,8 +19,8 @@ import com.janer.imglytictactai.Threads.TimerThread
 import com.janer.imglytictactai.Utils.MyAnimationUtils
 import kotlinx.android.synthetic.main.activity_tictactoe.*
 
-
 lateinit var resultHandler: Handler
+lateinit var AIHandler:Handler
 class TicTacToeActivity : AppCompatActivity() {
 
     val TAG = "TicTacToe"
@@ -39,12 +41,9 @@ class TicTacToeActivity : AppCompatActivity() {
 
         textview_gameTitle.text = spannable
 
-        ProcessingAIMoveDialog().show(
-            this.supportFragmentManager,
-            "tag_AIProcessing"
-        )
 
         resultHandler = TimerHandlerExtention(this)
+        AIHandler = AIHandlerExtention(this)
 
         startCount()
 
@@ -93,9 +92,42 @@ class TicTacToeActivity : AppCompatActivity() {
         MyAnimationUtils(view).apply {
             func_bounceAnimation()
         }
+
         myTicTacToe.btnClick(view)
     }
 
+    fun AI_btn_click(id:Int){
+        var buSelect: Button
+
+        when(id)
+        {
+            1 -> buSelect = btn1
+            2 -> buSelect = btn2
+            4 -> buSelect = btn3
+            5 -> buSelect = btn4
+            6 -> buSelect = btn5
+            7 -> buSelect = btn6
+            8 -> buSelect = btn7
+            9 -> buSelect = btn9
+            else -> buSelect = btn1
+        }
+
+        btnClick(buSelect)
+    }
+
+    fun showWaitingDialog(dismissCountdown:Int){
+        ProcessingAIMoveDialog(dismissCountdown).show(
+            this.supportFragmentManager,
+            "tag_AIProcessing"
+        )
+
+
+    }
+
+    fun dismissWaitingDialog() {
+       //  ProcessingAIMoveDialog().hide()
+     //   Dialog(this).hideAlertDialog(R.layout.dialog_aiprogress)
+    }
 
 }
 
