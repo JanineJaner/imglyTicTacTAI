@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -16,6 +17,7 @@ import com.janer.imglytictactai.R
 import com.janer.imglytictactai.GameLoop.TicTacToe
 import com.janer.imglytictactai.GameLoop.TimerThread
 import com.janer.imglytictactai.Utils.MyAnimationUtils
+import com.janer.imglytictactai.Utils.TextViewStyles
 import kotlinx.android.synthetic.main.activity_tictactoe.*
 
 lateinit var timerHandler: Handler
@@ -23,34 +25,25 @@ lateinit var AIHandler:Handler
 
 class TicTacToeActivity : AppCompatActivity() {
     lateinit var timerThread: TimerThread
-
-    val TAG = "TicTacToe"
     private lateinit var myTicTacToe: TicTacToe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tictactoe)
-
+        TextViewStyles().toBold(textview_gameTitle,resources.getString(R.string.s_title),7)
+        Log.i("SELECTION", "Text Style change -> activity")
         timerHandler = TimerHandlerExtention(this)
         AIHandler = AIHandlerExtention(this)
 
-        var layoutView = LayoutInflater.from(this).inflate(R.layout.activity_tictactoe, null)
-        myTicTacToe = TicTacToe(layoutView)
+        timerThread = TimerThread().apply{
+            run()
+        }
 
-       // val endGameIntent = Intent(this, EndScreenActivity::class.java)
-
-        val spannable = SpannableString(resources.getString(R.string.s_title))
-        spannable.setSpan(
-            StyleSpan(BOLD), 7, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        textview_gameTitle.text = spannable
-
-
-        //startCount()
-        timerThread = TimerThread()
-        timerThread.run()
-        myTicTacToe.startGame(timerThread)
-
+        LayoutInflater.from(this).inflate(R.layout.activity_tictactoe, null).also{
+            myTicTacToe = TicTacToe(it).apply {
+                startGame(timerThread)
+            }
+        }
     }
 
     override fun onResume() {
@@ -69,16 +62,6 @@ class TicTacToeActivity : AppCompatActivity() {
         timerThread.stop()
         finish()
     }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        timerThread.stop()
-        finish()
-
-    }
-
-
 
     fun updateResult(result:String){
         textview_timer.text = result
@@ -121,10 +104,6 @@ class TicTacToeActivity : AppCompatActivity() {
             this.supportFragmentManager,
             "tag_AIProcessing"
         )
-
-}
-
-
-
+    }
 }
 

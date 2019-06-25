@@ -1,7 +1,5 @@
 package com.janer.imglytictactai.Activities
 
-
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.janer.imglytictactai.Constants
@@ -21,7 +19,8 @@ class EndScreenActivity: AppCompatActivity() {
 
         button_restart.setOnClickListener {
             Utils.func_startActivity(this, TicTacToeActivity::class.java)
-            
+            overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
+            finish()
         }
     }
 

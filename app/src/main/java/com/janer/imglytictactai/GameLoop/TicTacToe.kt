@@ -12,30 +12,31 @@ import android.os.Bundle
 import com.janer.imglytictactai.Activities.EndScreenActivity
 import com.janer.imglytictactai.Constants
 import com.janer.imglytictactai.R
-import com.janer.imglytictactai.SharedPref
 import java.util.*
 
 
 enum class Markers {
     X, O, E;
 
+    /*
     companion object {
         fun random(): Markers {
             return values()[Random.nextInt(values().size)]
         }
     }
+    */
 }
 
 class TicTacToe(val view: View) {
     val TAG = "SELECTION"
-    var grid: Array<Markers>
+    var gridArray: Array<Markers>
     var isPlayerTurn: Boolean
     var turnCounter: UByte = 0u
     var tileColor1: String
     var tileColor2: String
 
     init {
-        grid = Array(9) { Markers.E }
+        gridArray = Array(9) { Markers.E }
         isPlayerTurn = Random.nextBoolean()
         tileColor1 = "#" + Integer.toHexString(ContextCompat.getColor(view.context, R.color.c_ButtonBackgroundPlayer))
         tileColor2 = "#" + Integer.toHexString(ContextCompat.getColor(view.context, R.color.c_ButtonBackgroundAI))
@@ -44,13 +45,13 @@ class TicTacToe(val view: View) {
     fun startGame(timerThread: TimerThread) {
 
         if (!isPlayerTurn) {
-            AIThread(grid).start()
+            AIThread(gridArray).start()
             timerThread.pause()
         }
-
         //Else it will wait for a button click from main activity
     }
 
+    //Player Cell Selection
     fun selectCell(view: View, timerThread: TimerThread) {
         var btnSelected: Button = view as Button
         var cellID = 0
@@ -65,27 +66,28 @@ class TicTacToe(val view: View) {
             R.id.btn8 -> cellID = 7
             R.id.btn9 -> cellID = 8
         }
+
         applyMarkers(cellID, btnSelected, timerThread)
     }
 
 
     fun applyMarkers(cellID: Int, btnSelected: Button, timerThread: TimerThread) {
-        turnCounter++
 
+        turnCounter++
         Log.i(TAG, "TURN:" + turnCounter)
         if (isPlayerTurn) {
-            grid[cellID] = Markers.X
+            gridArray[cellID] = Markers.X
             btnSelected.text = "X"
             btnSelected.background.setColorFilter(Color.parseColor(tileColor1), PorterDuff.Mode.SRC_ATOP)
 
             if (!checkGameOver(timerThread)) {
                 isPlayerTurn = false
                 timerThread.pause()
-                AIThread(grid).start()
+                AIThread(gridArray).start()
             }
 
         } else {
-            grid[cellID] = Markers.O
+            gridArray[cellID] = Markers.O
             btnSelected.text = "O"
             btnSelected.background.setColorFilter(Color.parseColor(tileColor2), PorterDuff.Mode.SRC_ATOP)
 
@@ -96,7 +98,7 @@ class TicTacToe(val view: View) {
         }
 
         btnSelected.isEnabled = false
-        Log.i(TAG, "Cell ID ${cellID}:" + Arrays.toString(grid))
+        Log.i(TAG, "Cell ID ${cellID}:" + Arrays.toString(gridArray))
 
     }
 
@@ -104,7 +106,7 @@ class TicTacToe(val view: View) {
         // winner = 0 -> Draw
         // winner = 1 -> Player Wins
         // winner = 2 -> AI Wins
-        if (checkWinner(grid)) {
+        if (checkWinner(gridArray)) {
             val winner: Int
             if (isPlayerTurn)
                 winner = 1
@@ -115,8 +117,7 @@ class TicTacToe(val view: View) {
             return true
         }
 
-        if(turnCounter>=9u)
-        {
+        if(turnCounter>=9u){
             val winner = 3
             gameOver(timerThread, winner)
             return true
@@ -124,16 +125,6 @@ class TicTacToe(val view: View) {
             return false
 
     }
-
-    fun gameOver(timerElapsedTime: TimerThread, winner: Int) {
-        val intent = Intent(view.context, EndScreenActivity::class.java)
-        val extras = Bundle()
-        extras.putInt(Constants.EXTRA_WINNER, winner)
-        extras.putString(Constants.EXTRA_TIME, "" + timerElapsedTime.getElapsedTime())
-        intent.putExtras(extras)
-        view.context.startActivity(intent)
-    }
-
 
     private fun checkWinner(grid: Array<Markers>): Boolean {
         //---------
@@ -163,6 +154,18 @@ class TicTacToe(val view: View) {
 
         return false
     }
+
+    fun gameOver(timerElapsedTime: TimerThread, winner: Int) {
+        val intent = Intent(view.context, EndScreenActivity::class.java)
+        val extras = Bundle()
+        extras.putInt(Constants.EXTRA_WINNER, winner)
+        extras.putString(Constants.EXTRA_TIME, "" + timerElapsedTime.getElapsedTime())
+        intent.putExtras(extras)
+        view.context.startActivity(intent)
+    }
+
+
+
 
 }
 

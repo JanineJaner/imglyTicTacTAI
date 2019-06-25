@@ -14,7 +14,11 @@ object Utils{
 
     fun func_startActivity(packageContext: Context,cls:Class<*>){
         var intent = Intent(packageContext, cls)
-          packageContext.startActivity(intent)
+        intent.flags.apply{
+            Intent.FLAG_ACTIVITY_CLEAR_TOP
+            Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        packageContext.startActivity(intent)
 
     }
 
