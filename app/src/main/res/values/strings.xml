@@ -3,4 +3,6 @@
     <string name="s_msg_alert_NO_NAME">You left it blank :( </string>
     <string name="s_title">TicTacT<b>AI</b></string>
     <string name="s_AI_move_processing">AI is processing the next step</string>
+    <string name="s_player_name_default">Player 1</string>
+    <string name="s_ai_name">Computer</string>
 </resources>

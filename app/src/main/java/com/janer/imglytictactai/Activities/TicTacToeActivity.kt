@@ -1,16 +1,12 @@
 package com.janer.imglytictactai.Activities
 
-import android.graphics.Typeface.BOLD
 import android.os.*
 import android.support.v7.app.AppCompatActivity
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import com.janer.imglytictactai.DialogFragments.ProcessingAIMoveDialog
+import com.janer.imglytictactai.DialogFragments.AiProcessingDialog
 import com.janer.imglytictactai.Handler.AIHandlerExtention
 import com.janer.imglytictactai.Handler.TimerHandlerExtention
 import com.janer.imglytictactai.R
@@ -34,7 +30,6 @@ class TicTacToeActivity : AppCompatActivity() {
         Log.i("SELECTION", "Text Style change -> activity")
         timerHandler = TimerHandlerExtention(this)
         AIHandler = AIHandlerExtention(this)
-
         timerThread = TimerThread().apply{
             run()
         }
@@ -100,7 +95,7 @@ class TicTacToeActivity : AppCompatActivity() {
         // actvity resumed when dialog called
         // TODO: DIALOG CALLED - ACTIVITY RESUME: find better solution
         timerThread.pause()
-        ProcessingAIMoveDialog(dismissCountdown).show(
+        AiProcessingDialog(dismissCountdown).show(
             this.supportFragmentManager,
             "tag_AIProcessing"
         )

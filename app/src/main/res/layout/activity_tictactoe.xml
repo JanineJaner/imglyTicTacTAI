@@ -214,7 +214,7 @@
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
                   android:gravity="left"
-                  android:text="Player 1"
+                  android:text="@string/s_player_name_default"
                   android:textSize="15sp"
                   android:textColor="@color/c_TextActivePlayer"/>
 
@@ -229,7 +229,7 @@
                   android:layout_marginTop="5dp"
                   android:layout_height="wrap_content"
                   android:gravity="right"
-                  android:text="Computer"
+                  android:text="@string/s_ai_name"
                   android:textSize="15sp"
                   android:textColor="@color/c_TextActivePlayer"/>
     </TableRow>

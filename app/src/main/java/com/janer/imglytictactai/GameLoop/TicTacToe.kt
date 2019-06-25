@@ -164,8 +164,5 @@ class TicTacToe(val view: View) {
         view.context.startActivity(intent)
     }
 
-
-
-
 }
 

@@ -7,12 +7,12 @@ import com.janer.imglytictactai.R
 import com.janer.imglytictactai.Utils.Utils
 import kotlinx.android.synthetic.main.activity_startpage.*
 import com.janer.imglytictactai.SharedPref
-import com.janer.imglytictactai.DialogFragments.InputPlayerNameDialog
+import com.janer.imglytictactai.DialogFragments.SetNameDialog
 import com.janer.imglytictactai.MyStaticVariables.Companion.isDarkMode
 import com.janer.imglytictactai.MyStaticVariables.Companion.isSamePlayer
 
 
-class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerNameDialogListener {
+class StartPageActivity :AppCompatActivity(), SetNameDialog.InputPlayerNameDialogListener {
 
     lateinit var sharedPref: SharedPref
 
@@ -92,7 +92,7 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
         }
     }
     fun func_showDialog(){
-        InputPlayerNameDialog().show(
+        SetNameDialog().show(
             this.supportFragmentManager,
             "tag_loginDialog"
         )

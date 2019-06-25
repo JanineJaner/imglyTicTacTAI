@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.dialog_aiprogress.view.*
 
 
 @SuppressLint("ValidFragment")
-class ProcessingAIMoveDialog(var dismissCountdown: Int): DialogFragment() {
+class AiProcessingDialog(var dismissCountdown: Int): DialogFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

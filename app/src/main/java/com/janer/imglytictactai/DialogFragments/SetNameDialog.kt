@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.dialog_inputplayername.view.*
 // or when the app first started
 // </Summary>
 
-class InputPlayerNameDialog : DialogFragment() {
+class SetNameDialog : DialogFragment() {
     lateinit var listener: InputPlayerNameDialogListener
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
