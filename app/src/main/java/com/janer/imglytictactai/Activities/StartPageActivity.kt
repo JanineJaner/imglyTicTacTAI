@@ -45,7 +45,6 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
         //Change Name
         button_changeName.setOnClickListener {
             func_showDialog()
-
         }
 
         // Dark/Light Mode Switching
@@ -57,19 +56,16 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
 
     }
 
-
     override fun onResume() {
         super.onResume()
         var checkboxState= sharedPref.func_loadBoolState(Constants.PREF_DARK_MODE)
         checkbox_darkModeEnabled.setChecked(checkboxState)
         MyStaticVariables.isDarkMode =!checkboxState
-
     }
 
     override fun onPause() {
         super.onPause()
-        overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
-
+        overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out) //fade transition when dark mode checkbox selected
     }
 
     override fun onDestroy() {
@@ -78,12 +74,14 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
     }
 
     fun func_updateWelcomeText(){
+
+        val playerName = sharedPref.func_loadString(Constants.PREF_PLAYERNAME)
         if(!isSamePlayer){
-            textview_greetings.text = "Hi, ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)} welcome back."
+            textview_greetings.text = "Hi, $playerName welcome back."
             isSamePlayer = true
 
         }else{
-            textview_greetings.text = "Hello ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)}"
+            textview_greetings.text = "Hello again, $playerName"
         }
     }
 
@@ -91,6 +89,7 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
         sharedPref.func_loadBoolState(Constants.PREF_FIRST_START).apply{
             if(!this)
             {
+                sharedPref.func_saveString(Constants.PREF_PLAYERNAME,"Player") // Initialized default player name at first app start
                 func_showDialog()
                 sharedPref.func_saveBoolState(Constants.PREF_FIRST_START,true)
             }
@@ -103,10 +102,9 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
         )
     }
 
+    // Called by player name dialog to update player name
     override fun applyText(playerName: String) {
         textview_greetings.text = "Hey $playerName :)"
     }
-
-
 
 }
