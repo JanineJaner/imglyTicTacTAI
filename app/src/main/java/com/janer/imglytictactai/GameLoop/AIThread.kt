@@ -8,7 +8,7 @@ import com.janer.imglytictactai.Activities.AIHandler
 import kotlin.random.Random
 
 class AIThread(val grid: Array<Markers>): Thread(){
-    val TAG = "TicTacToe"
+    val TAG = "SELECTION"
     override fun start() {
         super.start()
         var selectionDelay = Random.nextInt(3,8)
@@ -20,17 +20,21 @@ class AIThread(val grid: Array<Markers>): Thread(){
     fun selectCell()
     {
         publishProgress(21)
-        var cellId =Random.nextInt(1,9)
-        while(grid[cellId-1].toString()== "O" || grid[cellId-1].toString()== "X")
+        var cellId =Random.nextInt(0,8)
+        if(grid[cellId].equals(Markers.E))
+            Log.i(TAG,"Cell ID ${cellId} = E")
+        while(!grid[cellId].equals(Markers.E))
         {
-            cellId =Random.nextInt(1,9)
+            cellId =Random.nextInt(0,8)
+            Log.i(TAG,"RESELECTING POS:${cellId}")
         }
         publishProgress(cellId)
+        Log.i(TAG,"Sending back CELL ID $cellId")
     }
 
 
     private fun publishProgress(btn:Int){
-        Log.i(TAG,"Sending back to the UI Thread")
+
         var msgBundle = Bundle().also {
             it.putInt("btn_selected",btn)
         }

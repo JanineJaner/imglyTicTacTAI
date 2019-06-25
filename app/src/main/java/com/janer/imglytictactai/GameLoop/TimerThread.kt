@@ -6,12 +6,14 @@ import android.os.Message
 import android.os.SystemClock
 import android.util.Log
 import com.janer.imglytictactai.Activities.timerHandler
+import kotlin.concurrent.thread
 
 //
 //
 //
 //
 class TimerThread : Runnable {
+ //   lateinit var workerThread: Thread
     val TAG = "TimerThread"
     var pause:Boolean
     var startTime: Long = 0L
@@ -21,6 +23,7 @@ class TimerThread : Runnable {
         pause = false
         startTime = SystemClock.currentThreadTimeMillis()
         elapsedTime = 0L
+       // workerThread = Thread()
     }
 
     override fun run() {

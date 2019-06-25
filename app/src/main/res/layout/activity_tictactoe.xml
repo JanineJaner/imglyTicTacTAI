@@ -44,7 +44,7 @@
         <!--Row 0 Column 0-->
         <Button
                 android:id="@+id/btn1"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"
@@ -59,7 +59,7 @@
         <!--Row 0 Column 1-->
         <Button
                 android:id="@+id/btn2"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"
@@ -74,7 +74,7 @@
         <!--Row 0 Column 2-->
         <Button
                 android:id="@+id/btn3"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"
@@ -99,7 +99,7 @@
         <!--Row 1 Column 0-->
         <Button
                 android:id="@+id/btn4"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"
@@ -114,7 +114,7 @@
         <!--Row 1 Column 1-->
         <Button
                 android:id="@+id/btn5"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"
@@ -129,7 +129,7 @@
         <!--Row 1 Column 2-->
         <Button
                 android:id="@+id/btn6"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"
@@ -154,7 +154,7 @@
         <!--Row 2 Column 0-->
         <Button
                 android:id="@+id/btn7"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"
@@ -169,7 +169,7 @@
         <!--Row 2 Column 1-->
         <Button
                 android:id="@+id/btn8"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="36pt"
                 android:layout_height="80dp"
@@ -186,7 +186,7 @@
         <!--Row 2 Column 2-->
         <Button
                 android:id="@+id/btn9"
-                android:onClick="btnClick"
+                android:onClick="player_btn_click"
 
                 android:layout_width="30pt"
                 android:layout_height="80dp"

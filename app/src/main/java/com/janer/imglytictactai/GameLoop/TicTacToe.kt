@@ -27,6 +27,7 @@ enum class Markers {
 }
 
 class TicTacToe(val view: View) {
+    val TAG = "SELECTION"
     var grid: Array<Markers>
     var isPlayerTurn: Boolean
     var turnCounter: UByte = 0u
@@ -43,7 +44,6 @@ class TicTacToe(val view: View) {
     fun startGame(timerThread: TimerThread) {
 
         if (!isPlayerTurn) {
-            Log.i("TimerThread", "FIRST TURN = AI")
             AIThread(grid).start()
             timerThread.pause()
         }
@@ -51,30 +51,30 @@ class TicTacToe(val view: View) {
         //Else it will wait for a button click from main activity
     }
 
-    fun btnPressed(view: View, timerThread: TimerThread) {
+    fun selectCell(view: View, timerThread: TimerThread) {
         var btnSelected: Button = view as Button
         var cellID = 0
         when (btnSelected.id) {
-            R.id.btn1 -> cellID = 1
-            R.id.btn2 -> cellID = 2
-            R.id.btn3 -> cellID = 3
-            R.id.btn4 -> cellID = 4
-            R.id.btn5 -> cellID = 5
-            R.id.btn6 -> cellID = 6
-            R.id.btn7 -> cellID = 7
-            R.id.btn8 -> cellID = 8
-            R.id.btn9 -> cellID = 9
+            R.id.btn1 -> cellID = 0
+            R.id.btn2 -> cellID = 1
+            R.id.btn3 -> cellID = 2
+            R.id.btn4 -> cellID = 3
+            R.id.btn5 -> cellID = 4
+            R.id.btn6 -> cellID = 5
+            R.id.btn7 -> cellID = 6
+            R.id.btn8 -> cellID = 7
+            R.id.btn9 -> cellID = 8
         }
-        PlayGame(cellID, btnSelected, timerThread)
+        applyMarkers(cellID, btnSelected, timerThread)
     }
 
 
-    fun PlayGame(cellID: Int, btnSelected: Button, timerThread: TimerThread) {
+    fun applyMarkers(cellID: Int, btnSelected: Button, timerThread: TimerThread) {
         turnCounter++
 
-        Log.i("TimerThread", "TURN:" + turnCounter)
+        Log.i(TAG, "TURN:" + turnCounter)
         if (isPlayerTurn) {
-            grid[cellID - 1] = Markers.X
+            grid[cellID] = Markers.X
             btnSelected.text = "X"
             btnSelected.background.setColorFilter(Color.parseColor(tileColor1), PorterDuff.Mode.SRC_ATOP)
 
@@ -85,7 +85,7 @@ class TicTacToe(val view: View) {
             }
 
         } else {
-            grid[cellID - 1] = Markers.O
+            grid[cellID] = Markers.O
             btnSelected.text = "O"
             btnSelected.background.setColorFilter(Color.parseColor(tileColor2), PorterDuff.Mode.SRC_ATOP)
 
@@ -96,7 +96,7 @@ class TicTacToe(val view: View) {
         }
 
         btnSelected.isEnabled = false
-        Log.i("TimerThread", "Cell ID ${cellID - 1}:" + Arrays.toString(grid))
+        Log.i(TAG, "Cell ID ${cellID}:" + Arrays.toString(grid))
 
     }
 

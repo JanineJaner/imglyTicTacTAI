@@ -23,6 +23,7 @@ lateinit var AIHandler:Handler
 
 class TicTacToeActivity : AppCompatActivity() {
     lateinit var timerThread: TimerThread
+
     val TAG = "TicTacToe"
     private lateinit var myTicTacToe: TicTacToe
 
@@ -83,31 +84,33 @@ class TicTacToeActivity : AppCompatActivity() {
         textview_timer.text = result
     }
 
-    fun btnClick(view: View) {
+    fun player_btn_click(view: View) {
         MyAnimationUtils(view).apply {
             func_bounceAnimation()
         }
 
-        myTicTacToe.btnPressed(view,timerThread)
+        myTicTacToe.selectCell(view,timerThread)
     }
 
-    fun AI_btn_click(id:Int){
-        var buSelect: Button
+    fun AI_btn_click(cellID:Int){
+        var btnSelected: Button
 
-        when(id)
+        when(cellID)
+
         {
-            1 -> buSelect = btn1
-            2 -> buSelect = btn2
-            4 -> buSelect = btn3
-            5 -> buSelect = btn4
-            6 -> buSelect = btn5
-            7 -> buSelect = btn6
-            8 -> buSelect = btn7
-            9 -> buSelect = btn9
-            else -> buSelect = btn1
+            0 -> btnSelected = btn1
+            1 -> btnSelected = btn2
+            2 -> btnSelected = btn3
+            3 -> btnSelected = btn4
+            4 -> btnSelected = btn5
+            5 -> btnSelected = btn6
+            6 -> btnSelected = btn7
+            7 -> btnSelected = btn8
+            8 -> btnSelected = btn9
+            else -> btnSelected = btn1
         }
 
-        btnClick(buSelect)
+        myTicTacToe.selectCell(btnSelected,timerThread)
     }
 
     fun showWaitingDialog(dismissCountdown:Int){
