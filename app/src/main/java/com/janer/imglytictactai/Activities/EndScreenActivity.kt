@@ -17,11 +17,11 @@ class EndScreenActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_endscreen)
 
-
         updateEndScreen()
 
         button_restart.setOnClickListener {
             Utils.func_startActivity(this, TicTacToeActivity::class.java)
+            
         }
     }
 

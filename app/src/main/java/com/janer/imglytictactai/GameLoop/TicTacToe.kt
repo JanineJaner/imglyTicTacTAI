@@ -115,7 +115,7 @@ class TicTacToe(val view: View) {
             return true
         }
 
-        if(turnCounter>=10u)
+        if(turnCounter>=9u)
         {
             val winner = 3
             gameOver(timerThread, winner)

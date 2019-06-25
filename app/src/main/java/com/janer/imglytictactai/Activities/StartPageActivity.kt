@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import com.janer.imglytictactai.Constants
 import com.janer.imglytictactai.R
 import com.janer.imglytictactai.Utils.Utils
-import com.janer.imglytictactai.Utils.MyAnimationUtils
 import kotlinx.android.synthetic.main.activity_startpage.*
 import com.janer.imglytictactai.MyStaticVariables
 import com.janer.imglytictactai.SharedPref
 import com.janer.imglytictactai.DialogFragments.InputPlayerNameDialog
+import com.janer.imglytictactai.MyStaticVariables.Companion.isSamePlayer
 
 
 class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerNameDialogListener {
@@ -22,40 +22,18 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
         sharedPref = SharedPref(this)
         MyStaticVariables.isDarkMode =sharedPref.func_loadBoolState(Constants.PREF_DARK_MODE)
 
-        //
         //  Set Theme
-        //
-        if( MyStaticVariables.isDarkMode ){
-            setTheme(R.style.DarkTheme)
-        }
-        else {
-            setTheme(R.style.LightTheme)
-        }
+        if( MyStaticVariables.isDarkMode )setTheme(R.style.DarkTheme)
+        else setTheme(R.style.LightTheme)
+
         setContentView(R.layout.activity_startpage)
 
-        //
-        // Show Set Player Name Dialog
+        //Check app first start
+        // true -> Show Enter Player Name Dialog
+        func_checkFirstStart()
 
-        //
-        sharedPref.func_loadBoolState(Constants.PREF_FIRST_START).apply{
-            if(!this)
-            {
-                func_showDialog()
-                sharedPref.func_saveBoolState(Constants.PREF_FIRST_START,true)
-            }
-        }
-
-        //textview
-        if(!MyStaticVariables.isInStartPageActivity){
-            textview_greetings.text = "Hi, ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)} welcome back."
-            MyStaticVariables.isInStartPageActivity = true
-            MyAnimationUtils(textview_greetings).func_slideInBottom()
-
-        }else{
-            textview_greetings.text = "Hello ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)}"
-            MyAnimationUtils(textview_greetings).func_shirkFadeOutFromButtom()
-        }
-
+        //update textview
+        func_updateWelcomeText()
 
         // Start Game
         button_startGame.setOnClickListener {
@@ -96,10 +74,28 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
 
     override fun onDestroy() {
         super.onDestroy()
-        MyStaticVariables.isInStartPageActivity = false
+        isSamePlayer = false
     }
 
+    fun func_updateWelcomeText(){
+        if(!isSamePlayer){
+            textview_greetings.text = "Hi, ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)} welcome back."
+            isSamePlayer = true
 
+        }else{
+            textview_greetings.text = "Hello ${sharedPref.func_loadString(Constants.PREF_PLAYERNAME)}"
+        }
+    }
+
+    fun func_checkFirstStart(){
+        sharedPref.func_loadBoolState(Constants.PREF_FIRST_START).apply{
+            if(!this)
+            {
+                func_showDialog()
+                sharedPref.func_saveBoolState(Constants.PREF_FIRST_START,true)
+            }
+        }
+    }
     fun func_showDialog(){
         InputPlayerNameDialog().show(
             this.supportFragmentManager,
@@ -110,6 +106,7 @@ class StartPageActivity :AppCompatActivity(), InputPlayerNameDialog.InputPlayerN
     override fun applyText(playerName: String) {
         textview_greetings.text = "Hey $playerName :)"
     }
+
 
 
 }
