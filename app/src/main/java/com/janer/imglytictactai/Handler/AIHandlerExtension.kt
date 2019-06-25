@@ -20,9 +20,7 @@ class AIHandlerExtention(activity: TicTacToeActivity) : Handler() {
             {
                 in 0..8   -> activity.AI_btn_click(msg.data.getInt("btn_selected"))
                 in 23..28 ->  activity.showWaitingDialog(msg_data - 20)
-
             }
-
         }
     }
 }

@@ -101,28 +101,37 @@ class TicTacToe(val view: View) {
     }
 
     fun checkGameOver(timerThread: TimerThread): Boolean {
-
-        if (checkWinner(grid) || turnCounter >= 10u) {
-            var winner: String
+        // winner = 0 -> Draw
+        // winner = 1 -> Player Wins
+        // winner = 2 -> AI Wins
+        if (checkWinner(grid)) {
+            val winner: Int
             if (isPlayerTurn)
-                winner = SharedPref(view.context).func_loadString(Constants.PREF_PLAYERNAME)
+                winner = 1
             else
-                winner = "Computer"
+                winner = 2
             gameOver(timerThread, winner)
 
             return true
-        } else
+        }
+
+        if(turnCounter>=10u)
+        {
+            val winner = 3
+            gameOver(timerThread, winner)
+            return true
+        }
             return false
 
     }
 
-    fun gameOver(timerThread: TimerThread, winner: String) {
-        val i = Intent(view.context, EndScreenActivity::class.java)
+    fun gameOver(timerElapsedTime: TimerThread, winner: Int) {
+        val intent = Intent(view.context, EndScreenActivity::class.java)
         val extras = Bundle()
-        extras.putString(Constants.EXTRA_WINNER, winner)
-        extras.putString(Constants.EXTRA_TIME, "" + timerThread.getElapsedTime())
-        i.putExtras(extras)
-        view.context.startActivity(i)
+        extras.putInt(Constants.EXTRA_WINNER, winner)
+        extras.putString(Constants.EXTRA_TIME, "" + timerElapsedTime.getElapsedTime())
+        intent.putExtras(extras)
+        view.context.startActivity(intent)
     }
 
 

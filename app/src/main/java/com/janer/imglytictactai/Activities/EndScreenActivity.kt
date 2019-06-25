@@ -18,17 +18,28 @@ class EndScreenActivity: AppCompatActivity() {
         setContentView(R.layout.activity_endscreen)
 
 
-        val intent = getIntent()
-        val extras = intent.extras
-        val Winner = extras.getString(Constants.EXTRA_WINNER)
-        val Time =  extras.getString(Constants.EXTRA_TIME)
-        textview_congratulation.text = "Congratulations $Winner has won"
-        textview_time.text= "Your time of Thinking $Time"
+        updateEndScreen()
 
         button_restart.setOnClickListener {
             Utils.func_startActivity(this, TicTacToeActivity::class.java)
         }
+    }
 
+    fun updateEndScreen(){
+        val intent = getIntent()
+        val extras = intent.extras
+        val winnerID = extras.getInt(Constants.EXTRA_WINNER)
+        val Time =  extras.getString(Constants.EXTRA_TIME)
+
+        val winner:String?
+        when(winnerID)
+        {
+            1 -> winner = SharedPref(this).func_loadString(Constants.PREF_PLAYERNAME) + " has won"
+            2 -> winner = "Computer has won"
+            else -> winner = "It's a draw :)"
+        }
+        textview_winner.text = winner
+        textview_time.text= "Your time of Thinking $Time"
     }
 
 }
